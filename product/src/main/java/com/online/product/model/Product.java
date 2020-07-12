@@ -4,14 +4,21 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Builder
 @ToString
 public class Product {
+    @NotNull
     private int id;
+    @NotNull
     private String name;
+    @NotNull
     private String category;
+    @NotNull
     private double price;
+    @NotNull
     private int quantity;
 
 }
