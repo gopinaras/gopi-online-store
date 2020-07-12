@@ -17,6 +17,7 @@ public class ProductResource {
 
     private static ArrayList<Product> demoProducts;
     private static ArrayList<Product> dbProducts;
+    private int maxPrdId=0;
     @Autowired
     private ApplicationContext appContext;
 
@@ -149,8 +150,11 @@ public class ProductResource {
                 errors.add(String.format("Duplicate Product Name. This name is already used by product {%d}", prd.getId()));
             if (product.getQuantity() <= 0)
                 errors.add(String.format("Initial quantity cannot be zero for product {%s}", product.getName()));
+            if (product.getId() > maxPrdId)
+                maxPrdId=product.getId();
         });
-
+        if (product.getId() == 0)
+            product.setId(maxPrdId+1);
         if (errors.isEmpty()) {
             dbProducts.add(product);
             resp = Response.status(Response.Status.CREATED).build();
