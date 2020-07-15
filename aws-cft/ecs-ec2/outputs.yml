@@ -1,0 +1,16 @@
+Outputs:
+  EcsInstanceAsgName:
+    Condition: CreateWithASG
+    Description: Auto Scaling Group Name for ECS Instances
+    Value: !Ref EcsInstanceAsg
+  EcsSpotFleetRequestId:
+    Condition: CreateWithSpot
+    Description: Spot Fleet Request for ECS Instances
+    Value: !Ref EcsSpotFleet
+  UsedByECSCreateCluster:
+    Description: Flag used by ECS Create Cluster Wizard
+    Value: 'true'
+  TemplateVersion:
+    Description: The version of the template used by Create Cluster Wizard
+    Value: 2.0.0
+

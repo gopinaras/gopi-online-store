@@ -1,0 +1,52 @@
+Conditions:
+  CreateEC2LCWithKeyPair: !Not 
+    - !Equals 
+      - Ref: KeyName
+      - ''
+  SetEndpointToECSAgent: !Not 
+    - !Equals 
+      - !Ref EcsEndpoint
+      - ''
+  CreateNewSecurityGroup: !Equals 
+    - Ref: SecurityGroupId
+    - ''
+  CreateNewVpc: !Equals 
+    - Ref: VpcId
+    - ''
+  CreateSubnet1: !And 
+    - !Not 
+      - !Equals 
+        - Ref: SubnetCidr1
+        - ''
+    - !Condition CreateNewVpc
+  CreateSubnet2: !And 
+    - !Not 
+      - !Equals 
+        - Ref: SubnetCidr2
+        - ''
+    - !Condition CreateSubnet1
+  CreateSubnet3: !And 
+    - !Not 
+      - !Equals 
+        - Ref: SubnetCidr3
+        - ''
+    - !Condition CreateSubnet2
+  CreateWithSpot: !Equals 
+    - !Ref UseSpot
+    - 'true'
+  CreateWithASG: !Not 
+    - !Condition CreateWithSpot
+  CreateWithSpotPrice: !Not 
+    - !Equals 
+      - Ref: SpotPrice
+      - ''
+  IsConfiguringRootVolume: !Equals 
+    - Ref: ConfigureRootVolume
+    - 'true'
+  IsConfiguringDataVolume: !Equals 
+    - Ref: ConfigureDataVolume
+    - 'true'
+  IsInheritPublicIp: !Equals 
+    - Ref: AutoAssignPublicIp
+    - INHERIT
+
